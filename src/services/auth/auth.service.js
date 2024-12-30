@@ -3,7 +3,6 @@ const Support = require('../../models/support.model');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const ApiError = require('../../helpers/apiErrorConverter');
-const Privatemedia = require('../../models/privatecontent.model');
 
 // Create new user
 const createUser = async (data) => {
@@ -49,15 +48,9 @@ const getUserById = async (id) => {
     ]);
 
     // Fetch private media data
-    const privetdata = await Privatemedia.find({ userId: new mongoose.Types.ObjectId(id) });
-
-    // // Ensure both queries return data before merging
-    if (!privetdata) {
-      return userData;
-    }
 
     // // Combine userData and privetdata
-    const user = { ...userData._doc, privatemedia: privetdata.map((item) => item._doc), };
+    const user = { ...userData._doc };
     return user;
   } catch (error) {
     console.error('Error fetching user data:', error);
@@ -133,22 +126,8 @@ const deleteIntroMedia = async (id) => {
   }
 };
 
-const addPrivateMedia = async (data) => {
-  const privateMedia = await Privatemedia.create(data);
-  return privateMedia;
-};
 
-const deletePrivateMedia = async (id) => {
-  return await Privatemedia.findByIdAndDelete(id);
-};
 
-const viewPrivateMedia = async (id) => {
-  const privateMedia = await Privatemedia.find({ userId: id });
-  if (privateMedia.length == 0) {
-    throw new ApiError('Upload a private content', 200);
-  }
-  return privateMedia;
-};
 
 const addVerfication = async (userId, data) => {
   const verification = await User.findByIdAndUpdate(
@@ -185,9 +164,6 @@ module.exports = {
   addSupport,
   addIntroMedia,
   deleteIntroMedia,
-  addPrivateMedia,
-  deletePrivateMedia,
-  viewPrivateMedia,
   addVerfication,
   updateSocialLinks,
 };

@@ -2,7 +2,6 @@ const router = require('express').Router();
 const controller = require('../../controllers/profile/profile.controller');
 const auth = require('../../middlewares/auth.middleware');
 const validationSchema = require('../../validators/profile.validator');
-const filterController = require('../../controllers/filter/filter.controller');
 const validator = require('express-joi-validation').createValidator({
   passError: true,
 });
@@ -75,8 +74,7 @@ router.patch(
 
 router.patch('/social-links', controller.UpdateSocialLinks);
 
-router.get('/get-filter-types', filterController.getControllerUnickTypes);
-router.get('/get-filter-names/:type', filterController.getDataByType);
+
 
 module.exports = router;
 

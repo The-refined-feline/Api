@@ -5,9 +5,6 @@ const bcrypt = require('bcrypt');
 const ApiError = require('../helpers/apiErrorConverter');
 const { boolean } = require('joi');
 
-const introImage = new mongoose.Schema({
-  introImage: { type: String },
-});
 
 const userSchema = new mongoose.Schema(
   {
@@ -38,127 +35,8 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ['admin', 'model', 'seeker'],
-      default: 'seeker',
-    },
-
-    about: {
-      age: {
-        type: String,
-        trim: true,
-      },
-
-      interest: {
-        type: String,
-        trim: true,
-      },
-
-      location: {
-        type: String,
-        trim: true,
-      },
-
-      height: {
-        type: String,
-        trim: true,
-      },
-
-      ethnicity: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Filter'
-      },
-
-      bodyType: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Filter'
-      },
-
-      kids: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Filter'
-      },
-
-      smoking: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Filter'
-      },
-
-      drinking: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Filter'
-      },
-
-      gender: {
-        type: String,
-        trim: true,
-      },
-
-      interestedIn: {
-        type: String,
-        trim: true,
-      },
-
-      relationshipStatus: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Filter'
-      },
-
-      education: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Filter'
-      },
-
-      occupation: {
-        type: String,
-        trim: true,
-      },
-
-      bio: {
-        type: String,
-        trim: true,
-      },
-    },
-
-    isSetupDone: {
-      type: Boolean,
-      default: false,
-    },
-
-    notification: {
-      type: Boolean,
-      default: false,
-    },
-    profileimageurl: {
-      type: String,
-      default: '',
-    },
-    introImages: [introImage],
-
-    verification: {
-      verificationId: {
-        type: String,
-      },
-
-      selfie: {
-        type: String,
-      },
-    },
-
-    isVerfied: {
-      type: Boolean,
-      default: false,
-    },
-
-    socialLinks: {
-      facebooklink: {
-        type: String,
-      },
-      instagramlink: {
-        type: String,
-      },
-      twitterlink: {
-        type: String,
-      },
+      enum: ['admin', 'user'],
+      default: 'user',
     },
   },
   {

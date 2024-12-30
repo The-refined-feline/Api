@@ -1,6 +1,5 @@
 const User = require('../../models/user.model');
 const ApiError = require('../../helpers/apiErrorConverter');
-const Privatemedia = require('../../models/privatecontent.model');
 const mongoose = require('mongoose');
 const { http } = require('winston');
 const email = require('../email/email.service');
@@ -91,11 +90,8 @@ const editUser = async (id) => {
     if (!userData) {
       throw new ApiError('User not found', 404);
     }
-    const privetdata = await Privatemedia.find({ userId: new mongoose.Types.ObjectId(id) });
-    if (!privetdata) {
-      return userData;
-    }
-    const user = { ...userData._doc, privatemedia: privetdata.map((item) => item._doc), };
+
+    const user = { ...userData._doc };
     return user;
   } catch (e) {
     throw new ApiError(e.message, 404);
